@@ -1,6 +1,7 @@
 package recipes.models;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Recipe {
@@ -24,6 +25,8 @@ public class Recipe {
     @OneToOne(cascade = CascadeType.ALL) // recipe owns notes, if recipe is deleted, so are its notes
     private Notes notes;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
+    private Set<Ingredient> ingredients; // UNIQUE set of ingredients
 
 
 
@@ -117,5 +120,13 @@ public class Recipe {
 
     public void setNotes(Notes notes) {
         this.notes = notes;
+    }
+
+    public Set<Ingredient> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(Set<Ingredient> ingredients) {
+        this.ingredients = ingredients;
     }
 }
